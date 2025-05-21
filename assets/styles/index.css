@@ -1,0 +1,370 @@
+body{
+  width: 100%;
+  overflow: hidden;
+  background-color: #1a1a1a;
+}
+
+main{
+  height: 100vh;
+  width: 100%;
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+main::-webkit-scrollbar {
+  display: none;
+}
+
+.section{
+  position: relative;
+  display: grid;
+  align-content: center;
+  width: 100%;
+  height: 100vh;
+  scroll-snap-align: start;
+}
+
+.scetion:not(.section:first-child){
+  background-color: #1a1a1a;
+}
+
+.section__title{
+  margin: 0 auto;
+  width: 100%;
+  max-width: 75rem;
+  padding: 4rem 2.8rem;
+  margin-top: -8rem;
+  color: #f2f2f2;
+  border-radius: 1rem;
+
+  h1{
+    margin-bottom: .2em;
+    font-size: 5rem;
+    line-height: 1;
+  }
+
+  & h1 .title__felicidad{
+    color: #FFD93B;
+    text-shadow: 0 0 5px #FFD93B;
+  }
+
+  & h1 .title__paradojica {
+    color: #B0FF1A;
+  }
+
+  h2{
+    font-size: 2.5rem;
+    line-height: calc(2.5 / 2.25);
+  }
+}
+
+
+.emoji-container {
+  position: absolute;
+  right: 0;
+  width: 225px;
+  height: 160px;
+}
+
+.face{
+  --size: 150px;
+
+  overflow: hidden;
+  position: absolute;
+  width: var(--size);
+  height: var(--size);
+  background-color: yellow;
+  border-radius: 50%;
+  border: 4px solid black;
+}
+
+.face.left {
+  top: 0;
+  left: 75px;
+}
+
+.eye{
+  position: absolute;
+  width: 12px;
+  height: 24px;
+  background-color: black;
+  border-radius: 50%;
+  top: 40px;
+}
+
+.eye_center{
+  left: 75%;
+  transform: translate(-50%, 0);
+}
+
+.eye_left{
+  right: 45px;
+}
+
+.eye_right {
+  left: 45px;
+}
+
+.mouth{
+  width: 80px;
+  height: 40px;
+  border: 5px solid black;
+  border-radius: 50%;
+  background: transparent;
+  position: absolute;
+  top: 75%;
+}
+
+.mouth_left {
+  left: 45%;
+  transform: translate(-50%, -50%);
+  clip-path: polygon(0 0, 100% 0, 100% 50%, 0 50%);
+}
+
+.mouth_right {
+  top: 65%;
+  left: 55%;
+  transform: translate(-50%, -50%);
+  clip-path: polygon(0 50%, 100% 50%, 100% 100%, 0 100%);
+}
+
+.distorsion{
+  position: absolute;
+  top: 0%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  background: repeating-linear-gradient(0deg,
+        transparent 0px,
+        rgba(0, 0, 0, 0.1) 2px,
+        transparent 4px);
+  mix-blend-mode: multiply;
+  animation: flicker 0.2s infinite;
+}
+
+@keyframes flicker {
+  0% {
+    background-position: 0;
+  }
+
+  50% {
+    transform: translateY(1px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.videoContainer{
+  position: absolute;
+  top: 0;
+  left: 0;
+  min-width: 100%;
+  min-height: 100%;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  filter: blur(8px);
+  background-color: #1a1a1a;
+}
+
+.videoContainer::after{
+  position: absolute;
+  inset: 0;
+  content: "";
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0 0 0 / 0.65);
+}
+
+.video-background {
+  min-width: 100%;
+  min-height: 100%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.arrow, .nextPage{
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 15%;
+  margin: 0 auto;
+  fill: rgba(252 217 59 / 0.75);
+  max-width: 50px;
+  max-height: 50px;
+  animation: move 0.4s infinite;
+}
+
+.nextPage{
+  bottom: 10%;
+  opacity: 0;
+  transition: opacity 300ms ease-in-out;
+  fill: #BF914F;
+}
+
+.nextPage.visible{
+  opacity: 1;
+}
+
+@keyframes move {
+  0%, 100%{
+    transform: translateY(-2px);
+  }
+  50%{
+    transform: translateY(2px);
+  }
+  
+}
+
+.section__comic{
+  place-content: center;
+}
+
+.containerComic{
+  --boder-interior: 4px solid #BF914F;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  width: 1000px;
+  height: 360px;
+  border: 1rem solid #BF914F;
+  border-style: double;
+  border-radius: 4px;
+  transform: skewX(-15deg);
+}
+
+.containerComic__item, .item{
+  position: relative;
+  overflow: hidden;
+  background-size: cover;
+  background-position: top center;
+  text-align: center;
+  
+  & span{
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: calc(2 / 1.25);
+    text-shadow: 0 0 4px rgba(250 250 250 / 0.6);
+    color: #000;
+  }
+}
+
+.containerComic__item:first-child{
+  background-image: url("/assets/images/empezando.png");
+}
+
+.containerComic__item:last-child{
+  display: grid;
+  place-content: center;
+  background-color: #131313;
+
+  & span{
+    display: block;
+    color: #f2f2f2;
+    font-size: 2.25rem;
+    line-height: calc(2.5 / 2.25);
+    text-shadow: none;
+  }
+}
+
+.containerComic__item:nth-child(2){
+  background-image: url("/assets/images/seleccion.webp");
+  border-right: var(--boder-interior);
+  border-left: var(--boder-interior);
+}
+
+.containerComic__item::after{
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  background-color: black;
+  transition: top 1s ease-in-out;
+}
+
+.containerComic__item:not(.containerComic__item:first-child)::after {
+  content: "";
+}
+
+.containerComic__item[data-show="true"]::after{
+  top: -100%;
+}
+
+.onePageComic{
+  border: 8px double #BF914F;
+  width: 240px;
+  height: auto;
+}
+
+.onePageComic_big{
+  width: 480px;
+}
+
+.item__two{
+  border-left: 2px solid #BF914F;
+  border-right: 2px solid #BF914F;
+}
+
+.item__one, .item__three {
+  display: grid;
+  place-content: center;
+  background-color: #131313;
+
+  & span {
+    display: block;
+    color: #f2f2f2;
+    font-size: 2.25rem;
+    line-height: calc(2.5 / 2.25);
+    text-align: center;
+    text-shadow: none;
+  }
+}
+
+.item__two{
+  background-image: url("/assets/images/trailer.png");
+  background-size: cover;
+}
+
+.item::after {
+  position: absolute;
+  inset: 0;
+  height: 100%;
+  background-color: black;
+  transition: top 1s ease-in-out;
+}
+
+.item:not(.item:first-child)::after {
+  content: "";
+}
+
+.item[data-show="true"]::after {
+  top: -100%;
+}
+
+.item__one_compra{
+  background-image: url("/assets/images/compra.png");
+  background-size: cover;
+}
+
+.item__two_text{
+  display: grid;
+  place-content: center;
+  background-image: none;
+
+  & span{
+    display: block;
+    color: #f2f2f2;
+    font-size: 2.25rem;
+    line-height: calc(2.5 / 2.25);
+    text-shadow: none;
+  }
+}
+
+.item__three_costumbre{
+  background-image: url("/assets/images/costrumbre.png");
+  background-size: cover;
+}

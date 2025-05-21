@@ -1,0 +1,86 @@
+.glitch {
+  font-size: 100px;
+  position: relative;
+  color: white;
+  animation: glitchMove 2s infinite steps(2, end);
+}
+
+.glitch::before,
+.glitch::after {
+  content: "😵‍💫";
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: white;
+  background: black;
+  overflow: hidden;
+  clip-path: inset(0 0 0 0);
+}
+
+.glitch::before {
+  text-shadow: -2px 0 red;
+  animation: glitchTop 0.6s infinite linear alternate-reverse;
+}
+
+.glitch::after {
+  text-shadow: 2px 0 blue;
+  animation: glitchBottom 0.6s infinite linear alternate-reverse;
+}
+
+@keyframes glitchTop {
+  0% {
+    transform: translate(0, 0);
+    clip-path: inset(0 0 80% 0);
+  }
+
+  50% {
+    transform: translate(-5px, -3px);
+    clip-path: inset(0 0 40% 0);
+  }
+
+  100% {
+    transform: translate(5px, -2px);
+    clip-path: inset(0 0 60% 0);
+  }
+}
+
+@keyframes glitchBottom {
+  0% {
+    transform: translate(0, 0);
+    clip-path: inset(80% 0 0 0);
+  }
+
+  50% {
+    transform: translate(5px, 3px);
+    clip-path: inset(60% 0 0 0);
+  }
+
+  100% {
+    transform: translate(-5px, 2px);
+    clip-path: inset(40% 0 0 0);
+  }
+}
+
+@keyframes glitchMove {
+
+  0%,
+  100% {
+    transform: translate(0);
+  }
+
+  20% {
+    transform: translate(-2px, 2px);
+  }
+
+  40% {
+    transform: translate(2px, -2px);
+  }
+
+  60% {
+    transform: translate(-1px, 1px);
+  }
+
+  80% {
+    transform: translate(1px, -1px);
+  }
+}
