@@ -368,3 +368,21 @@ main::-webkit-scrollbar {
   background-image: url("/assets/images/costrumbre.png");
   background-size: cover;
 }
+
+.derechos{
+  width: 55ch;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 2em;
+  font-size: 0.75rem;
+  line-height: calc(1 / 0.75);
+  color: #f2f2f2;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+a{
+  color: currentColor;
+  font-weight: 600;
+}

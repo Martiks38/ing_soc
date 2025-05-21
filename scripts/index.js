@@ -6,6 +6,7 @@ const observerOptions = {
 
 const observer = new IntersectionObserver((entries) => {
   const main = document.querySelector('main')
+
   entries.forEach((entry) => {
     const { isIntersecting, target } = entry
     const $video = target.querySelector('video')
@@ -17,8 +18,9 @@ const observer = new IntersectionObserver((entries) => {
       const $items = Array.from(
         prelist.length !== 0 ? prelist : target.querySelectorAll('.item')
       ).slice(1)
-      console.log($items)
+
       main.style.overflow = 'hidden'
+      window.addEventListener('keydown', bloquearScroll, { passive: false })
 
       setTimeout(() => {
         $items[0].setAttribute('data-show', 'true')
@@ -34,6 +36,7 @@ const observer = new IntersectionObserver((entries) => {
             main.style.overflow = 'auto'
             target.setAttribute('data-section', 'continue')
 
+            window.removeEventListener('keydown', bloquearScroll)
             $nextPage = target.querySelector('.nextPage')
             $nextPage.classList.toggle('visible')
           }, 1800)
@@ -41,10 +44,16 @@ const observer = new IntersectionObserver((entries) => {
       }, 1500)
     } else if ($video && !$video.paused && !$video.ended) {
       $video.pause()
-      $video.currentTime = 0
     }
   })
 }, observerOptions)
+
+function bloquearScroll(e) {
+  const keys = ['ArrowUp', 'ArrowDown', 'Space', 'PageUp', 'PageDown', 'Home', 'End']
+  if (keys.includes(e.code) || keys.includes(e.key)) {
+    e.preventDefault()
+  }
+}
 
 document.addEventListener('DOMContentLoaded', () => {
   const $sections = document.querySelectorAll('[data-section="stop"]')
